@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte - La boutique française{% endblock %}
+
+{% block content %}
+<h1>Mon compte</h1>
+
+<h2>Bienvenue {{app.user.firstname}}</h2>
+<p>C'est dans cet epsace que vous allez pouvoir gérer toutes vos informations personnelles</p>
+<hr>
+<ul>
+{% if is_granted('ROLE_ADMIN') %}
+    <li><a href="{{path('admin')}}">Vous êtes administrateur, accéder au back-office ?</a> </li>
+{% endif %}
+    <li><a href="{{path('account_password')}}">Modifier mon mot de passe</a> </li>
+    <li><a href="{{path('account_address')}}">Gérer mes adresses</a> </li>
+    <li>Mes commandes</li>
+</ul>
+
+{% if is_granted('ROLE_ADMIN') %}
+    {# debug #}
+    <ul>Debug
+        <li>dump(app.user)</li>
+        <li>$ > symfony debug:router (affiche toutes les routes)</li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+{% endif %}
+
+{# {{dump(app.user)}} #}
+{# Cette page doit être accessible seulement au user config > > security.yaml #}
+
+{% endblock %}

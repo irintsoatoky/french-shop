@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon panier - La boutique française{% endblock %}
+
+{% block content %}
+
+    <h1 class="mb-4">Mon panier</h1>
+
+    {# Source : https://getbootstrap.com/docs/4.0/content/tables/#examples #}
+{% if cart|length > 0 %}
+    <table class="table">
+    <thead>
+        <tr>
+        {# <th scope="col">#</th> #}
+        <th scope="col">Produits</th>
+        <th scope="col"></th>
+        <th scope="col">Quantité</th>
+        <th scope="col">Prix</th>
+        <th scope="col">Total</th>
+        <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% set total = null %}
+    {% for product in cart %}
+        <tr>
+        {# <th scope="row">1</th> #}
+            <th>
+                <img height="75px" src="uploads/{{product.product.illustration}}" alt="{{product.product.name}}"><br>
+            </th>
+            <td>{{product.product.name}} <small>({{product.product.subtitle}})</small></td>
+            <td>
+                x {{product.quantity}} &nbsp;&nbsp;
+                <small>
+                    <a href="{{path('add_to_cart',{'id': product.product.id})}}">
+                        <i class="fas fa-plus"></i>
+                    </a>    
+                </small>
+                <big> / </big>
+                <small>
+                    <a href="{{path('decrease_to_cart',{'id': product.product.id})}}">
+                        <i class="fas fa-minus"></i>
+                    </a>
+                </small>
+            </td>
+            <td>{{(product.product.price / 100)|number_format(2, ',', '.')}} €</td>
+            <td>{{(product.product.price * product.quantity / 100)|number_format(2, ',', '.')}} €</td>
+            <td>
+                <a href="{{ path('delete_to_cart',{'id' : product.product.id}) }}">
+                <i class="fas fa-trash-alt"></i>
+                </a>
+            </td>
+        </tr>
+    {% set total = total + (product.product.price * product.quantity / 100) %}
+
+    {% endfor %}
+    </tbody>
+    </table>
+    <ul class="text-right" style="list-style:none;">
+        <li class="my-2"><b>Nombre de produits : </b>{{cart|length}}</li>
+        <li class="my-2"><b>Prix total de mon panier : </b>{{total|number_format(2, ',', '.')}} €</li>
+        <li class="my-4"><a href="{{path('order')}}" class="btn btn-success">Valider mon panier</a></li>
+    </ul>
+{% else %}
+    <hr>
+    <p>Votre panier est vide.</p>
+{% endif %}
+{% endblock %}

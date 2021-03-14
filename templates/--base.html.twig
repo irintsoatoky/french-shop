@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="LA boutique qui vend uniquement du made in France">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.1.1">
+    <title>{% block title %}La boutique française -- 100% made in France{% endblock %}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="{{asset('assets/css/carousel.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/css/myStyle.css')}}" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/0e691e95a2.js" crossorigin="anonymous"></script>
+    {% block javascript %}{% endblock %}
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="{{path('home')}}">La boutique française</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{path('products')}}">Nos produits</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Qui sommes nous ?</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+            </ul>
+            <div class="nav-bar-custom">
+                {% if app.user %}
+                    <a href="{{path('app_logout')}}">Deconnexion</a> | <a href="{{path('account')}}">Mon compte <small>({{app.user.firstname}})</small></a>
+                {% else %}
+                    <a href="{{path('app_login')}}">Connexion</a> | <a href="{{path('register')}}">Inscription</a>
+                {% endif %}            
+            </div>
+            <a href="{{path('cart')}}"><img src="{{asset('assets/img/shopping-cart.png')}}" class="cart-icon"alt="Mon panier"></a>
+
+        </div>
+    </nav>
+</header>
+
+<main role="main">
+
+    <footer class="footer-custom">
+        <p>&copy; 2021 La boutique française<br>
+            <small>
+                La boutique 100% made in France<br>
+                <a href="#">Privacy</a> &middot; <a href="#">Terms</a>
+            </small>
+        </p>
+    </footer>
+</main>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="{{asset('assets/js/bootstrap.bundle.js')}}"></script>
+
+{% block scriptStripe %}{% endblock %}
+
+</body>
+</html>
