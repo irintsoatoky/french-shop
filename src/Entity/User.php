@@ -63,6 +63,11 @@ class User implements UserInterface
         $this->orders = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getEmail();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -163,7 +168,7 @@ class User implements UserInterface
 
     public function getFullName(): ?string
     {
-        return $this->getFirstname().' '.$this->getLastname();
+        return $this->getFirstname() . ' ' . $this->getLastname();
     }
 
     public function setLastname(string $lastname): self
